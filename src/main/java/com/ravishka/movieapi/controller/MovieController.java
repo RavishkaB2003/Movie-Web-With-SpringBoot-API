@@ -1,16 +1,27 @@
 package com.ravishka.movieapi.controller;
 
 
+import com.ravishka.movieapi.entities.movie;
+import com.ravishka.movieapi.services.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/movies")
 public class MovieController {
 
-    @GetMapping
-    public String getMovies() {
-        return "List of movies";
+
+    @Autowired
+    private MovieService movieService;
+
+    @GetMapping("/all")
+    public ResponseEntity<List<movie>> GetAllMovies() {
+        return new ResponseEntity<List<movie>>(movieService.allMovies(), HttpStatus.OK);
     }
 }
